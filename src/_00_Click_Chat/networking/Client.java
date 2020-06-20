@@ -16,6 +16,7 @@ public class Client {
 
 	ObjectOutputStream os;
 	ObjectInputStream is;
+	
 
 	public Client(String ip, int port) {
 		this.ip = ip;

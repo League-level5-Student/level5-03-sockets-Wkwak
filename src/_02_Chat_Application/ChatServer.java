@@ -19,6 +19,7 @@ public class ChatServer {
 
 	ObjectOutputStream os;
 	ObjectInputStream is;
+	
 
 	public ChatServer(int port) {
 		this.port = port;
