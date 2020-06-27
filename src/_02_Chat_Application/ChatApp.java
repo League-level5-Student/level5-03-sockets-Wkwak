@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /*
@@ -18,8 +17,8 @@ public class ChatApp extends JFrame {
 	JButton send = new JButton("Send");
 	JPanel panel = new JPanel();
 	JLabel label = new JLabel("Type here");
-	JTextArea ta = new JTextArea(15,70);
 	String message = "";
+	String message2 = "";
 
 	ChatServer cs;
 	ChatClient cc;
@@ -37,7 +36,6 @@ public class ChatApp extends JFrame {
 			setTitle("SERVER");
 			JOptionPane.showMessageDialog(null,"Server started at: " + cs.getIPAddress() + "\nPort: " + cs.getPort());
 			
-			panel.add(ta);
 			panel.add(label);
 			panel.add(messanger);
 			panel.add(send);
@@ -48,10 +46,10 @@ public class ChatApp extends JFrame {
 				message += messanger.getText();
 				//need to display on the text area
 				messanger.setText("");
-				ta.setText(message);
+				cs.sendMessage(message);
 			});
 			frame.setVisible(true);
-			frame.setSize(750,500);
+			frame.setSize(550,300);
 			String message = messanger.getText();
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			cs.start();
@@ -62,23 +60,21 @@ public class ChatApp extends JFrame {
 			String prtStr = JOptionPane.showInputDialog("Enter the port number");
 			int port = Integer.parseInt(prtStr);
 			cc = new ChatClient(ipStr, port);
-			
+		
 			//gui does not display on the client screen 
-			panel.add(ta);
 			panel.add(label);
 			panel.add(messanger);
 			panel.add(send);
-			frame.add(panel);
+			add(panel);
+			setSize(550,300);
 			
 			send.addActionListener((e)->{
-				message += messanger.getText();
+				message2 = messanger.getText();
 				//need to display on the text area
 				messanger.setText("");
-				ta.setText(message);
-				cc.sendMessage();
+				cc.sendMessage(message2);
 			});
 			setVisible(true);
-			setSize(750, 500);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			cc.start();
 		}

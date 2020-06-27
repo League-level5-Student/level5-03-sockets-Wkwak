@@ -20,6 +20,8 @@ public class ChatServer {
 	ObjectOutputStream os;
 	ObjectInputStream is;
 	
+	String clientMessage;
+	ChatApp ca = new ChatApp();
 
 	public ChatServer(int port) {
 		this.port = port;
@@ -62,14 +64,17 @@ public class ChatServer {
 	public int getPort() {
 		return port;
 	}
+	
+	public String getClientMessage() {
+		return clientMessage;
+	}
 
-	public void sendMessage() {
+	public void sendMessage(String message) {
 		try {
-			if (os != null) {
-				os.writeObject("CLICK SENT FROM SERVER");
-				os.flush();
-			}
+			os.writeObject(message);
+			os.flush();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -15,6 +15,8 @@ public class ChatClient {
 
 	ObjectOutputStream os;
 	ObjectInputStream is;
+	
+	ChatApp ca = new ChatApp();
 
 	public ChatClient(String ip, int port) {
 		this.ip = ip;
@@ -47,10 +49,10 @@ public class ChatClient {
 		}
 	}
 
-	public void sendMessage() {
+	public void sendMessage(String message) {
 		try {
 			if (os != null) {
-				os.writeObject("CLICK SENT FROM CLIENT");
+				os.writeObject(message);
 				os.flush();
 			}
 		} catch (IOException e) {
